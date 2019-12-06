@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="cmn-hans">
+<head>
+  <meta charset="utf-8">
+
+  <!--PC-->
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="renderer" content="webkit">
+
+  <!--WAP-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="format-detection" content="telephone=no, email=no, address=no">
+
+  <title>demo for vue-player-audio</title>
+</head>
+<body>
+  <div id="app">
+    <vue-player-audio
+      :audio-src="mp3"
+      :controls="true"
+      v-slot="audioData"
+    >
+      <br>
+      {{ audioData.isPlaying ? '播放咯' : '暂停咯' }}
+      <br>
+      当前时间：{{ audioData.currentSecond }}
+      <br>
+      最大时间：{{ audioData.maxSecond }}
+      <br>
+    </vue-player-audio>
+
+    <hr>
+
+    <vue-player-audio
+      :audio-src="mp3Sprites"
+
+      :start-second="0"
+      :end-second="2.089795918367347"
+
+      :loop="true"
+      :autoplay="true"
+
+      :controls="true"
+    >
+    </vue-player-audio>
+
+    <hr>
+
+    <vue-player-audio
+      :audio-src="mp3Sprites"
+
+      :start-second="4"
+      :end-second="5.032018140589569"
+
+      :loop="true"
+      :autoplay="false"
+
+      :controls="true"
+    >
+    </vue-player-audio>
+
+    <hr>
+
+    <vue-player-audio
+      :audio-src="mp3Sprites"
+
+      :start-second="7"
+      :end-second="8.96281179138322"
+
+      :loop="false"
+      :autoplay="true"
+
+      :controls="true"
+    >
+    </vue-player-audio>
+
+    <hr>
+    <hr>
+
+    <input type="number" min="0" max="2" pattern="[0-9]*" style="width: 100%; display: block;" v-model="index">
+    <a href="javascript:" @click="play">play</a>
+    <br>
+
+    <vue-player-audio
+      :audio-src="mp3Sprites"
+
+      :start-second="spritesData[index][0]"
+      :end-second="spritesData[index][1]"
+
+      :loop="false"
+      :autoplay="true"
+
+      :controls="true"
+    >
+    </vue-player-audio>
+
+    <hr>
+
+    <vue-player-audio
+      :audio-src="mp3Sprites"
+
+      :start-second="spritesData[index][0]"
+      :end-second="spritesData[index][1]"
+
+      :controls="true"
+
+      ref="PlayerAudioComponent"
+    >
+    </vue-player-audio>
+  </div>
+
+  <script src="//unpkg.com/vue"></script>
+  <script src="//unpkg.com/vue-player-audio"></script>
+  <!-- <script src="../dist/vue-player-audio.iife.js"></script> -->
+
+  <script>
+  // 全局注册
+  // Vue.use(vuePlayerAudio, { component: 'vue-player-audio' })
+  // 或：
+  // Vue.component('vue-player-audio', vuePlayerAudio)
+
+  new Vue({
+    components: {
+      // 局部注册
+      'vue-player-audio': vuePlayerAudio
+    },
+    el: '#app',
+    data () {
+      return {
+        mp3: 'http://pc.wangpan.xycdn.n0808.com/9ac5ed49770e6371263fbf3cbfe480f8',
+        mp3Sprites: 'http://pc.wangpan.xycdn.n0808.com/7c390d2fc50787c4f96d77870a66ce68',
+
+        spritesData: Object.freeze({
+          0: [0, 2.089795918367347],
+          1: [4, 5.032018140589569],
+          2: [7, 8.96281179138322]
+        }),
+
+        index: 1
+      }
+    },
+    methods: {
+      play () {
+        this.$refs.PlayerAudioComponent.$refs.audioDom.play()
+      }
+    }
+  })
+  </script>
+</body>
+</html>

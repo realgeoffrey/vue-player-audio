@@ -1,0 +1,38 @@
+{
+  "name": "vue-player-audio",
+  "description": "播放音频文件，支持设置播放时间区间（Vue组件）",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:realgeoffrey/vue-player-audio.git"
+  },
+  "keywords": [
+    "vue",
+    "audio"
+  ],
+  "author": "realgeoffrey",
+  "license": "MIT",
+  "homepage": "https://github.com/realgeoffrey/vue-player-audio#readme",
+  "bugs": {
+    "url": "https://github.com/realgeoffrey/vue-player-audio/issues"
+  },
+  "main": "dist/vue-player-audio.cjs.js",
+  "module": "dist/vue-player-audio.esm.js",
+  "unpkg": "dist/vue-player-audio.iife.js",
+  "jsdelivr": "dist/vue-player-audio.iife.js",
+  "scripts": {
+    "build": "rollup --config ./build/rollup.config.js "
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.7.5",
+    "@babel/preset-env": "^7.7.6",
+    "babelrc-rollup": "^3.0.0",
+    "rollup": "^1.27.9",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-terser": "^5.1.2",
+    "rollup-plugin-vue": "5.0.1",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "version": "1.0.0"
+}
