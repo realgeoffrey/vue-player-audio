@@ -75,11 +75,6 @@
     </vue-player-audio>
 
     <hr>
-    <hr>
-
-    <input type="number" min="0" max="2" pattern="[0-9]*" style="width: 100%; display: block;" v-model="index">
-    <a href="javascript:" @click="play">play</a>
-    <br>
 
     <vue-player-audio
       :audio-src="mp3Sprites"
@@ -94,7 +89,11 @@
     >
     </vue-player-audio>
 
-    <hr>
+    <br>
+    第<input type="number" min="0" max="2" pattern="[0-9]*" style="width: 10%;" v-model="index">段（0~2）：
+    <a href="javascript:" @click="play">play↓</a>
+    <br>
+    <br>
 
     <vue-player-audio
       :audio-src="mp3Sprites"
@@ -127,8 +126,8 @@
     el: '#app',
     data () {
       return {
-        mp3: 'http://pc.wangpan.xycdn.n0808.com/9ac5ed49770e6371263fbf3cbfe480f8',
-        mp3Sprites: 'http://pc.wangpan.xycdn.n0808.com/7c390d2fc50787c4f96d77870a66ce68',
+        mp3: '//backstage-img-ssl.a.88cdn.com/07312a7745294eb4da1d2c08fe5a1d101ecdb097',
+        mp3Sprites: '//backstage-img-ssl.a.88cdn.com/abf7c314dba1f429dd0d22d4fc89bcafb80b7cbb',
 
         spritesData: Object.freeze({
           0: [0, 2.089795918367347],

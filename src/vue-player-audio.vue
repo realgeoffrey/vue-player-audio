@@ -70,8 +70,11 @@ export default {
       currentSecond: this.startSecond,
       maxSecond: 0,
 
-      setTimeoutId: 0,
-      allowSetCurrentTime: true
+      allowSetCurrentTime: true,
+
+      setTimeoutId1: 0,
+      setTimeoutId2: 0,
+      setTimeoutId3: 0
     }
   },
   watch: {
@@ -81,13 +84,14 @@ export default {
     startSecond () {
       this.beginPlay()
     }
-
   },
   mounted () {
     this.beginPlay()
   },
   beforeDestroy () {
-    clearTimeout(this.setTimeoutId)
+    clearTimeout(this.setTimeoutId1)
+    clearTimeout(this.setTimeoutId2)
+    clearTimeout(this.setTimeoutId3)
   },
   methods: {
     // 开始播放
@@ -104,8 +108,13 @@ export default {
     loopPlayOrEndPause () {
       if (this.loop) { // 再次播放
         this.$refs.audioDom.currentTime = this.startSecond
-        setTimeout(() => {
-          this.$refs.audioDom.play()
+        this.setTimeoutId2 = setTimeout(() => {
+          try {
+            this.$refs.audioDom.play()
+          } catch (e) {
+            // 事件都是异步的，所以可能audio被消除了之后才执行回调
+            // console.warn(e)
+          }
         }, this.loopGapMillisecond)
       } else {
         this.$refs.audioDom.pause()
@@ -114,37 +123,52 @@ export default {
     },
     // 设置isPlaying
     setIsPlaying () {
-      clearTimeout(this.setTimeoutId)
-      this.setTimeoutId = setTimeout(() => {
-        this.isPlaying = !this.$refs.audioDom.paused
+      clearTimeout(this.setTimeoutId1)
+      this.setTimeoutId1 = setTimeout(() => {
+        try {
+          this.isPlaying = !this.$refs.audioDom.paused
+        } catch (e) {
+          // 事件都是异步的，所以可能audio被消除了之后才执行回调
+          // console.warn(e)
+        }
       }, this.loopGapMillisecond + 20)
     },
 
     // timeupdate事件处理
     timeupdateHandler () {
-      this.maxSecond = this.$refs.audioDom.duration
-      this.currentSecond = this.$refs.audioDom.currentTime
+      try {
+        this.maxSecond = this.$refs.audioDom.duration
+        this.currentSecond = this.$refs.audioDom.currentTime
 
-      if (this.currentSecond < this.startSecond) { // 当前时间 < 开始时间
-        if (this.allowSetCurrentTime) { // 1秒只能重置一次currentTime（兼容iOS：iOS设置了currentTime之后可能会回溯前一段时间开始播放）
-          this.$refs.audioDom.currentTime = this.startSecond
+        if (this.currentSecond < this.startSecond) { // 当前时间 < 开始时间
+          if (this.allowSetCurrentTime) { // 1秒只能重置一次currentTime（兼容iOS：iOS设置了currentTime之后可能会回溯前一段时间开始播放）
+            this.$refs.audioDom.currentTime = this.startSecond
 
-          this.allowSetCurrentTime = false
-          setTimeout(() => {
-            this.allowSetCurrentTime = true
-          }, 1000)
+            this.allowSetCurrentTime = false
+            this.setTimeoutId3 = setTimeout(() => {
+              this.allowSetCurrentTime = true
+            }, 1000)
+          }
+        } else {
+          // 播放结束
+          if ((this.endSecond !== 0 && this.currentSecond >= this.endSecond) || (this.maxSecond !== 0 && this.currentSecond >= this.maxSecond)) {
+            this.loopPlayOrEndPause()
+          }
+          this.setIsPlaying()
         }
-      } else {
-        // 播放结束
-        if ((this.endSecond !== 0 && this.currentSecond >= this.endSecond) || (this.maxSecond !== 0 && this.currentSecond >= this.maxSecond)) {
-          this.loopPlayOrEndPause()
-        }
-        this.setIsPlaying()
+      } catch (e) {
+        // 事件都是异步的，所以可能audio被消除了之后才执行回调
+        // console.warn(e)
       }
     },
     // ended事件处理
     endedHandler () {
-      this.loopPlayOrEndPause()
+      try {
+        this.loopPlayOrEndPause()
+      } catch (e) {
+        // 事件都是异步的，所以可能audio被消除了之后才执行回调
+        // console.warn(e)
+      }
     },
     // pause事件处理
     pauseHandler () {
