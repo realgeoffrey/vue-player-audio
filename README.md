@@ -1,6 +1,6 @@
 # vue-player-audio
 
-播放音频文件，支持设置播放时间区间（Vue组件）
+播放音频文件，支持设置播放时间区间（Vue@2组件）
 
 1. npm：<https://www.npmjs.com/package/vue-player-audio>
 2. demo：<https://realgeoffrey.github.io/vue-player-audio/demo/index.html>
@@ -14,7 +14,7 @@
 2. 浏览器引用
 
     ```html
-    <!-- 需要先引入vue：<script src="//unpkg.com/vue"></script> -->
+    <!-- 需要先引入vue：<script src="//unpkg.com/vue@2"></script> -->
     <script src="//unpkg.com/vue-player-audio"></script>
     ```
 
@@ -48,7 +48,7 @@
     1. 全局注册
 
         ```html
-        <!-- 需要先引入vue：<script src="//unpkg.com/vue"></script> -->
+        <!-- 需要先引入vue：<script src="//unpkg.com/vue@2"></script> -->
         <!-- 需要先引入vue-player-audio：<script src="//unpkg.com/vue-player-audio"></script> -->
 
         <script>
@@ -60,7 +60,7 @@
     2. 局部注册
 
         ```html
-        <!-- 需要先引入vue：<script src="//unpkg.com/vue"></script> -->
+        <!-- 需要先引入vue：<script src="//unpkg.com/vue@2"></script> -->
         <!-- 需要先引入vue-player-audio：<script src="//unpkg.com/vue-player-audio"></script> -->
 
         <script>
