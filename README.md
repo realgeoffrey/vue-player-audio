@@ -1,9 +1,11 @@
 # vue-player-audio
 
+[![NPM Version](https://img.shields.io/npm/v/vue-player-audio)](https://www.npmjs.com/package/vue-player-audio)
+![Vue 2](https://img.shields.io/badge/Vue_2-42b883)
+
 播放音频文件，支持设置播放时间区间（Vue@2组件）
 
-1. npm：<https://www.npmjs.com/package/vue-player-audio>
-2. demo：<https://realgeoffrey.github.io/vue-player-audio/demo/index.html>
+demo：<https://realgeoffrey.github.io/vue-player-audio/demo/index.html>
 
 ### 安装
 1. Node.js安装
